@@ -3,7 +3,7 @@ see [git wiki page](https://wiki.gauchoracing.com/books/onboarding/page/git) for
 ## applications
 Mac and Unix download using package managers (besides arm-toolchain), windows use links below
 * [CMAKE](https://cmake.org/download/)  
-* [ARM toolchain (arm-none-eabi), CHECK OS VERSION](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)  
+* [ARM toolchain (arm-none-eabi), CHECK OS VERSION BEFORE DOWNLOADING](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)  
 * [openocd](https://github.com/openocd-org/openocd/releases/tag/v0.12.0)  
 * [ninja](https://github.com/ninja-build/ninja/releases)  
 ## vscode extensions
