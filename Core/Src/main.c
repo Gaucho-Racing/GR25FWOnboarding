@@ -23,7 +23,7 @@
 #include "fdcan.h"
 #include "spi.h"
 #include "gpio.h"
-
+//#include "stm32g4xx_hal_spi.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -46,6 +46,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+extern SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 /* USER CODE END PV */
@@ -78,7 +79,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  //HAL_SPI_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -94,9 +95,11 @@ int main(void)
   MX_CRC_Init();
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
-  //MX_SPI1_Init(); //SPI1 SCK intereferes with led PA5
+  MX_SPI1_Init(); //SPI1 SCK intereferes with led PA5
   /* USER CODE BEGIN 2 */
-
+  uint8_t T_arr[5] = {1,0,0,1,1};
+  uint8_t R_arr[5];
+  HAL_SPI_TransmitReceive(&hspi1, T_arr, R_arr, sizeof(T_arr), 5);
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -157,7 +160,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**
