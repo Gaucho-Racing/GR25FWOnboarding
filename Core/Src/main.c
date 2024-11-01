@@ -115,13 +115,13 @@ int main(void)
         // Compare the sent and received buffers
         if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
         {
-          Error_Handler();  // Transfer error
+          Error_Handler();  // Transfer error :(
         }
         break;
 
       case HAL_TIMEOUT:
       case HAL_ERROR:
-        Error_Handler();  // Timeout or other error
+        Error_Handler();  // Timeout or other error :(
         break;
       default:
         break;
@@ -191,13 +191,14 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   //__disable_irq(); // This line was in here originally, no idea what it does
-  while (0)
-  {
-    HAL_Delay(200);
-    // Probably do something here?
+
+  for(int i = 0; i < 4; i++) {
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored
+    HAL_Delay(100);
   }
 
-  // Currently does nothing :)
+  HAL_Delay(200);
+  // Probably do something more important here?
 
   /* USER CODE END Error_Handler_Debug */
 }
