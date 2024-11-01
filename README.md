@@ -1,6 +1,6 @@
 See the [git wiki page](https://wiki.gauchoracing.com/books/onboarding/page/git) for a primer on git
 # Required stuff
-## applications
+## Applications
 Mac and Unix download using package managers (besides arm-toolchain), windows use links below
 * [CMAKE](https://cmake.org/download/)  
 * [ARM toolchain (arm-none-eabi), CHECK OS VERSION BEFORE DOWNLOADING](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)  
@@ -18,7 +18,7 @@ Mac and Unix download using package managers (besides arm-toolchain), windows us
 3. If the CMake Extension prompts you to set up the configuration, choose DEBUG and proceed to step 5
 4. Generate the build stuff with `cmake --preset <target>`. With target in development being `Debug` typically.  
 5. Run and Debug, Debug using the provided Debug config, Cortex Debug  
-Cry as nothing works, then after much debugging rejoice as something works!
+6. Cry as nothing works, then after much debugging rejoice as something works!
 
 # Debugging
 If something doesn't work chances are one of the tools wasn't added to path correctly, run each of the tools independently  
