@@ -107,29 +107,26 @@ int main(void)
   {
     /* USER CODE END WHILE */
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-    HAL_Delay(200);
 
     switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
-    case HAL_OK:
-      /* Communication is completed ___________________________________________ */
-      /* Compare the sent and received buffers */
-      if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
-      {
-        /* Transfer error in transmission process */
-        Error_Handler();
-      }
-      break;
+      case HAL_OK:
+        // Communication is completed ___________________________________________
+        // Compare the sent and received buffers
+        if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
+        {
+          Error_Handler();  // Transfer error
+        }
+        break;
 
-    case HAL_TIMEOUT:
-    /* An Error Occur ______________________________________________________ */
-    case HAL_ERROR:
-      /* Call Timeout Handler */
-      Error_Handler();
-      break;
-    default:
-      break;
+      case HAL_TIMEOUT:
+      case HAL_ERROR:
+        Error_Handler();  // Timeout or other error
+        break;
+      default:
+        break;
     }
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -193,10 +190,15 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
+  //__disable_irq(); // This line was in here originally, no idea what it does
   while (0)
   {
+    HAL_Delay(200);
+    // Probably do something here?
   }
+
+  // Currently does nothing :)
+
   /* USER CODE END Error_Handler_Debug */
 }
 
