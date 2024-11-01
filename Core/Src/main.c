@@ -119,9 +119,12 @@ int main(void)
         }
         break;
 
-      case HAL_TIMEOUT:
-      case HAL_ERROR:
-        Error_Handler();  // Timeout or other error :(
+      case HAL_ERROR: // Double Error_Handler() [4 flashes]
+        Error_Handler();
+        Error_Handler();
+        break;
+      case HAL_TIMEOUT: // Single Error_Handler() [2 flashes]
+        Error_Handler();    // Currently no ACK means HAL_TIMEOUT
         break;
       default:
         break;
@@ -196,9 +199,7 @@ void Error_Handler(void)
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored
     HAL_Delay(100);
   }
-
-  HAL_Delay(200);
-  // Probably do something more important here?
+  // TODO: Do something more important here?
 
   /* USER CODE END Error_Handler_Debug */
 }
