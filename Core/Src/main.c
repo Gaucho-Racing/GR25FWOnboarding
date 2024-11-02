@@ -98,7 +98,7 @@ int main(void)
   MX_SPI1_Init(); //SPI1 SCK intereferes with led PA5
   /* USER CODE BEGIN 2 */
   uint8_t T_arr[16] = {0};
-  uint8_t R_arr[BUFFERSIZE];
+  uint8_t R_arr[16] = {0};
   HAL_SPI_TransmitReceive(&hspi1, T_arr, R_arr, sizeof(T_arr), 5);
   /* USER CODE END 2 */
   /* Infinite loop */
