@@ -123,9 +123,11 @@ int main(void)
         Error_Handler();
         Error_Handler();
         break;
+
       case HAL_TIMEOUT: // Single Error_Handler() [2 flashes]
         Error_Handler();    // Currently no ACK means HAL_TIMEOUT
         break;
+
       default:
         break;
     }
