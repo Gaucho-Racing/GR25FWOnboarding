@@ -50,7 +50,7 @@ SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[] = "****SPI - Two Boards communication based on Polling **** SPI Message ******** SPI Message ******** SPI Message ****";
+uint8_t aTxBuffer[16] = {0};
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
@@ -117,6 +117,13 @@ int main(void)
         {
           Error_Handler();  // Transfer error :(
         }
+
+        for(int i = 1; i < BUFFERSIZE; i++)
+        {
+          aTxBuffer[i] = aTxBuffer[i-1] + 1;
+        }
+        aTxBuffer[0] = aTxBuffer[BUFFERSIZE - 1];
+
         break;
 
       case HAL_ERROR: // Double Error_Handler() [4 flashes]
