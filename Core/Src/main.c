@@ -23,6 +23,7 @@
 #include "fdcan.h"
 #include "spi.h"
 #include "gpio.h"
+// #include <cstdint>
 //#include "stm32g4xx_hal_spi.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -96,15 +97,17 @@ int main(void)
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
   MX_SPI1_Init(); //SPI1 SCK intereferes with led PA5
+  HAL_SPI_MspInit(&hspi1);
   /* USER CODE BEGIN 2 */
   uint8_t T_arr[16] = {0};
-  uint8_t R_arr[16] = {0};
-  HAL_SPI_TransmitReceive(&hspi1, T_arr, R_arr, sizeof(T_arr), 5);
+  uint8_t R_arr[16] = {1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
+ 
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+     HAL_SPI_TransmitReceive(&hspi1, T_arr, R_arr, sizeof(T_arr), 5);
     /* USER CODE END WHILE */
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
     HAL_Delay(200);
