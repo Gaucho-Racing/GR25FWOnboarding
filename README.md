@@ -1,6 +1,6 @@
 see [git wiki page](https://wiki.gauchoracing.com/books/onboarding/page/git) for a primer on git
 # Required stuff
-## applications
+## Applications
 Mac and Unix download using package managers (besides arm-toolchain), windows use links below
 * [CMAKE](https://cmake.org/download/)  
 * [ARM toolchain (arm-none-eabi), CHECK OS VERSION BEFORE DOWNLOADING](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)  
@@ -12,7 +12,7 @@ Mac and Unix download using package managers (besides arm-toolchain), windows us
 ### Optional Vscode extensions
 * Serial Monitor
 
-# How 2 Run
+# How to Run
 1. Download Required stuff and add to PATH
 2. Open VSCode  
 3. If the CMake Extension prompts you to set up the configuration, choose DEBUG and proceed to step 5
