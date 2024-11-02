@@ -97,8 +97,8 @@ int main(void)
   MX_FDCAN2_Init();
   MX_SPI1_Init(); //SPI1 SCK intereferes with led PA5
   /* USER CODE BEGIN 2 */
-  uint8_t T_arr[5] = {1,0,0,1,1};
-  uint8_t R_arr[5];
+  uint8_t T_arr[16] = {0};
+  uint8_t R_arr[BUFFERSIZE];
   HAL_SPI_TransmitReceive(&hspi1, T_arr, R_arr, sizeof(T_arr), 5);
   /* USER CODE END 2 */
   /* Infinite loop */
