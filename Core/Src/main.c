@@ -106,7 +106,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
     switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
@@ -118,11 +118,32 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
+        /* Makes a vaguely random message */
         for(int i = 1; i < BUFFERSIZE; i++)
         {
-          aTxBuffer[i] = aTxBuffer[i-1] + 1;
+          aTxBuffer[i] = !(aTxBuffer[i-1] + 1 * (i % 2));
         }
         aTxBuffer[0] = aTxBuffer[BUFFERSIZE - 1];
+
+        // Maybe flash the message we recieved?
+        for(int i = 0; i < BUFFERSIZE; i++)
+        {
+          if(aTxBuffer[i] == 0)
+          {
+            HAL_Delay(200);
+          }
+          else
+          {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(100);
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(100);
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(100);
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+          }
+
+        }
 
         break;
 
@@ -202,13 +223,14 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  //__disable_irq(); // This line was in here originally, no idea what it does
+
+  //__disable_irq(); // Re-enable this when ready
 
   for(int i = 0; i < 4; i++) {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored instead of crashing
     HAL_Delay(100);
   }
-  // TODO: Do something more important here?
+  // FIXME: Remake this into just the original __disable_irq() line once we have communication
 
   /* USER CODE END Error_Handler_Debug */
 }
