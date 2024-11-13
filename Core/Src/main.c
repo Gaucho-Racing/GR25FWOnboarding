@@ -102,7 +102,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   for(int i = 0; i < 16; i++)
   {
-    aTxBuffer[i] = i;
+    aTxBuffer[i] = 'A' + i;
   }
   /* USER CODE END 2 */
 
