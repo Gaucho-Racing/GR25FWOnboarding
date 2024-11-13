@@ -98,44 +98,46 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI2_Init();
-  /* USER CODE BEGIN 2 */
 
+  /* USER CODE BEGIN 2 */
+  for(int i = 0; i < 16; i++)
+  {
+    aTxBuffer[i] = i;
+  }
   /* USER CODE END 2 */
+
   /* Infinite loop */
+  
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-    for(int i = 0; i < 16; i++)
-    {
-      aTxBuffer[i] = i;
-    }
 
     switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
       case HAL_OK:
         // Communication is completed ___________________________________________
         // Compare the sent and received buffers
-        if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
+        if (!Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
         {
           Error_Handler();  // Transfer error :(
         }
 
         // Flashes recieved message (kind of)
-        for(int i = 0; i < BUFFERSIZE; i++)
-        {
-          if(aRxBuffer[i] == 0)
-          {
-            HAL_Delay(200);
-          }
-          else
-          {
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            HAL_Delay(100);
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            HAL_Delay(100);
-          }
-        }
+        // for(int i = 0; i < BUFFERSIZE; i++)
+        // {
+        //   if(aRxBuffer[i] == 0)
+        //   {
+        //     HAL_Delay(200);
+        //   }
+        //   else
+        //   {
+        //     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        //     HAL_Delay(100);
+        //     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        //     HAL_Delay(100);
+        //   }
+        //  }
 
         break;
 
