@@ -107,7 +107,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  
+
   /* USER CODE BEGIN WHILE */
   while (1)
   {
@@ -250,7 +250,7 @@ static void MX_SPI2_Init(void)
 {
 
   /* USER CODE BEGIN SPI2_Init 0 */
-
+  __HAL_RCC_SPI2_CLK_ENABLE();
   /* USER CODE END SPI2_Init 0 */
 
   /* USER CODE BEGIN SPI2_Init 1 */
@@ -276,7 +276,6 @@ static void MX_SPI2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN SPI2_Init 2 */
-
   /* USER CODE END SPI2_Init 2 */
 
 }
