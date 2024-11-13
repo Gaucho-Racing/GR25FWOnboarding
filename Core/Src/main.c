@@ -50,7 +50,7 @@ SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[8] = "wording"; // Confirmed SENT!!!
+uint8_t aTxBuffer[8] = "wording";
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
@@ -119,6 +119,8 @@ int main(void)
         {
           Error_Handler();  // Transfer error :(
         }
+
+        // Do something with the data we got! Probably configure the aRxBuffer or something
 
         break;
 
