@@ -50,7 +50,7 @@ SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[8] = "wording";
+uint8_t aTxBuffer[8] = "wording"; // Confirmed SENT!!!
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
