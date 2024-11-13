@@ -106,7 +106,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    for(int i = 0; i < 16; i++)
+    {
+      aTxBuffer[i] = i;
+    }
 
     switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
@@ -118,17 +121,10 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        /* Makes a vaguely random message */
-        for(int i = 1; i < BUFFERSIZE; i++)
-        {
-          aTxBuffer[i] = !(aTxBuffer[i-1] + 1 * (i % 2));
-        }
-        aTxBuffer[0] = aTxBuffer[BUFFERSIZE - 1];
-
-        // Maybe flash the message we recieved?
+        // Flashes recieved message (kind of)
         for(int i = 0; i < BUFFERSIZE; i++)
         {
-          if(aTxBuffer[i] == 0)
+          if(aRxBuffer[i] == 0)
           {
             HAL_Delay(200);
           }
@@ -138,20 +134,17 @@ int main(void)
             HAL_Delay(100);
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
             HAL_Delay(100);
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            HAL_Delay(100);
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
           }
         }
 
         break;
 
-      case HAL_ERROR: // Double Error_Handler() [4 flashes]
+      case HAL_ERROR: // Double Error_Handler() [2 sec]
         Error_Handler();
         Error_Handler();
         break;
 
-      case HAL_TIMEOUT: // Single Error_Handler() [2 flashes]
+      case HAL_TIMEOUT: // Single Error_Handler() [1 sec]
         Error_Handler();    // Currently no ACK means HAL_TIMEOUT
         break;
 
