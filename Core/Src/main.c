@@ -120,7 +120,7 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        // Do something with the data we got! Probably configure the aRxBuffer or something
+        // Do something with the data we got! Probably configure aRxBuffer
         strncpy(aRxBuffer, "correct", BUFFERSIZE);
 
         break;
