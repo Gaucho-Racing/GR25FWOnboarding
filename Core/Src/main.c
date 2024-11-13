@@ -113,7 +113,7 @@ int main(void)
     switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
       case HAL_OK:
-        // Communication is completed ___________________________________________
+        // Communication is completed
         // Compare the sent and received buffers
         if (!Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
         {
@@ -121,6 +121,7 @@ int main(void)
         }
 
         // Do something with the data we got! Probably configure the aRxBuffer or something
+        strncpy(aRxBuffer, "correct", BUFFERSIZE);
 
         break;
 
