@@ -50,7 +50,7 @@ SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[16] = {0};
+uint8_t aTxBuffer[8] = "wording";
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
@@ -100,10 +100,7 @@ int main(void)
   MX_SPI2_Init();
 
   /* USER CODE BEGIN 2 */
-  for(int i = 0; i < 16; i++)
-  {
-    aTxBuffer[i] = 'A' + i;
-  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,7 +110,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
+    switch (HAL_SPI_Transmit(&hspi2, (uint8_t *)aTxBuffer, BUFFERSIZE, 5000))
     {
       case HAL_OK:
         // Communication is completed ___________________________________________
@@ -122,22 +119,6 @@ int main(void)
         {
           Error_Handler();  // Transfer error :(
         }
-
-        // Flashes recieved message (kind of)
-        // for(int i = 0; i < BUFFERSIZE; i++)
-        // {
-        //   if(aRxBuffer[i] == 0)
-        //   {
-        //     HAL_Delay(200);
-        //   }
-        //   else
-        //   {
-        //     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        //     HAL_Delay(100);
-        //     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        //     HAL_Delay(100);
-        //   }
-        //  }
 
         break;
 
