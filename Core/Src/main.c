@@ -110,7 +110,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    switch (HAL_SPI_TransmitReceive(&hspi1, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
+    switch (HAL_SPI_TransmitReceive(&hspi1, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))  // 5 sec timeout
     {
       case HAL_OK:
         // Communication is completed
