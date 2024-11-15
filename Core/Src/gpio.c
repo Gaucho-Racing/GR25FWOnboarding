@@ -50,6 +50,7 @@ void MX_GPIO_Init(void)
   // GPIO_InitStruct.Pull = GPIO_NOPULL;
   // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   // HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  // LED CONFLICTS WITH SPI1
 
   /* Configure SPI2_CS:A4, SPI2_SCKA5, SPI2_MISO:A6, SPI2_MOSI:A7 */
   GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
