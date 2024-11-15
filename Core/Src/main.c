@@ -204,10 +204,6 @@ void Error_Handler(void)
 
   //__disable_irq(); // Re-enable this when ready
 
-  for(int i = 0; i < 50; i++) {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored instead of crashing
-    HAL_Delay(20);
-  }
   // FIXME: Remake this into just the original __disable_irq() line once we have communication setup
 
   /* USER CODE END Error_Handler_Debug */
