@@ -1,7 +1,7 @@
 See the [git wiki page](https://wiki.gauchoracing.com/books/onboarding/page/git) for a primer on git
 # Required stuff
 ## Applications
-Mac and Unix download using package managers (besides arm-toolchain), windows use links below
+Mac and Unix download using package managers (besides arm-toolchain), Windows use links below
 * [CMAKE](https://cmake.org/download/)  
 * [ARM toolchain (arm-none-eabi), CHECK OS VERSION BEFORE DOWNLOADING](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)  
 * [openocd](https://github.com/openocd-org/openocd/releases/tag/v0.12.0)  
