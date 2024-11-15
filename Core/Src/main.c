@@ -46,7 +46,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi2;
+SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
@@ -58,7 +58,7 @@ uint8_t aRxBuffer[BUFFERSIZE];
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_SPI2_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 /* USER CODE END PFP */
@@ -97,7 +97,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI2_Init();
+  MX_SPI1_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -110,7 +110,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
+    switch (HAL_SPI_TransmitReceive(&hspi1, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
     {
       case HAL_OK:
         // Communication is completed
@@ -233,11 +233,11 @@ static void MX_SPI2_Init(void)
   __HAL_RCC_SPI2_CLK_ENABLE();
   /* USER CODE END SPI2_Init 0 */
 
-  /* USER CODE BEGIN SPI2_Init 1 */
+  /* USER CODE BEGIN SPI1_Init 1 */
 
-  /* USER CODE END SPI2_Init 1 */
+  /* USER CODE END SPI1_Init 1 */
   /* SPI2 parameter configuration*/
-  hspi2.Instance = SPI2;
+  hspi2.Instance = SPI1;
   hspi2.Init.Mode = SPI_MODE_MASTER;  // CHANGE TO SPI_MODE_SLAVE WHEN NOT TESTING
   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
@@ -251,12 +251,12 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CRCPolynomial = 7;
   hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
   hspi2.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
-  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN SPI2_Init 2 */
-  /* USER CODE END SPI2_Init 2 */
+  /* USER CODE BEGIN SPI1_Init 2 */
+  /* USER CODE END SPI1_Init 2 */
 
 }
 
