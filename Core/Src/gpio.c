@@ -51,7 +51,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /* Configure SPI2_MOSI : A11 */
+  /* Configure SPI2_MOSI:A11 */
   GPIO_InitStruct.Pin = GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -59,7 +59,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /* Configure more */
+  /* Configure SPI2_CS:B12, SPI2_SCK:B13, SPI2_MISO:B14, */
   GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
