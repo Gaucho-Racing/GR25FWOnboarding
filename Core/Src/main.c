@@ -121,7 +121,7 @@ int main(void)
         }
 
         // Do something with the data we got! Probably configure aRxBuffer
-        strncpy(aRxBuffer, "correct", BUFFERSIZE);
+        strncpy(aTxBuffer, "correct", BUFFERSIZE);
 
         break;
 
