@@ -118,16 +118,10 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        // Do something with the data we got! Probably configure aRxBuffer
+        // Do something with the data we got! Probably configure aTxBuffer
         if (!memcmp(aRxBuffer, "sending", BUFFERSIZE)) {
-          for(int i = 0; i < 6; i++) {
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            HAL_Delay(500);
-          }
+          memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
-
-        /* New message to send */
-        memcpy(aTxBuffer, "correct", BUFFERSIZE);
 
         break;
 
