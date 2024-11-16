@@ -117,13 +117,9 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        // Do something with the data we got! Probably configure aRxBuffer
-        memcpy(aTxBuffer, "correct", BUFFERSIZE);
-        if (memcmp(aRxBuffer, "wording", BUFFERSIZE)) {
-          // for(int i = 0; i < 6; i++) {
-          //   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-          //   HAL_Delay(500);
-          // }
+        // Do something with the data we got! Probably configure aTxBuffer
+        if (!memcmp(aRxBuffer, "wording", BUFFERSIZE)) {
+          memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
 
         break;
