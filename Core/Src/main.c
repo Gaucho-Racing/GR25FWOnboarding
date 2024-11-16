@@ -119,7 +119,8 @@ int main(void)
         }
 
         // Do something with the data we got! Probably configure aTxBuffer
-        if (!memcmp(aRxBuffer, "sending", BUFFERSIZE)) {
+        if (!memcmp(aRxBuffer, "sending", BUFFERSIZE))
+        {
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
 
