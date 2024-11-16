@@ -38,7 +38,7 @@ void MX_SPI1_Init(void)
 
   /* USER CODE END SPI1_Init 1 */
   hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;  // Change to SPI_MODE_SLAVE as needed
+  hspi1.Init.Mode = SPI_MODE_SLAVE;  // ACU is SLAVE
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
