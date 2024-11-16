@@ -121,10 +121,10 @@ int main(void)
         // Do something with the data we got! Probably configure aRxBuffer
         memcpy(aTxBuffer, "correct", BUFFERSIZE);
         if (memcmp(aRxBuffer, "sending", BUFFERSIZE)) {
-          // for(int i = 0; i < 6; i++) {
-          //   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-          //   HAL_Delay(500);
-          // }
+          for(int i = 0; i < 6; i++) {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(500);
+          }
         }
 
         break;
