@@ -23,12 +23,9 @@
 #include "fdcan.h"
 #include "spi.h"
 #include "gpio.h"
-#include <string.h>
-
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -121,7 +118,13 @@ int main(void)
         }
 
         // Do something with the data we got! Probably configure aRxBuffer
-        strncpy(aTxBuffer, "correct", BUFFERSIZE);
+        memcpy(aTxBuffer, "correct", BUFFERSIZE);
+        if (memcmp(aRxBuffer, "wording", BUFFERSIZE)) {
+          // for(int i = 0; i < 6; i++) {
+          //   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+          //   HAL_Delay(500);
+          // }
+        }
 
         break;
 
