@@ -113,6 +113,9 @@ int main(void)
       case HAL_OK:
         // Communication is completed
         // Compare the sent and received buffers
+        uint8_t recieved[BUFFERSIZE];
+        memcpy(recieved, aRxBuffer, BUFFERSIZE);
+
         if (!Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
         {
           Error_Handler();  // Transfer error :(
@@ -120,7 +123,7 @@ int main(void)
 
         // Do something with the data we got! Probably configure aRxBuffer
         memcpy(aTxBuffer, "correct", BUFFERSIZE);
-        if (memcmp(aRxBuffer, "sending", BUFFERSIZE)) {
+        if (memcmp(recieved, "sending", BUFFERSIZE)) {
           for(int i = 0; i < 6; i++) {
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
             HAL_Delay(500);
