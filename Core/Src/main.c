@@ -102,6 +102,7 @@ enum STATE_MACHINE state = OFF;
  *           <- "OFFNOW0"
  * "OFFNOW0" -> OFF
  */
+
 /* Shortcut for copying and comparing memory buffer strings 
  * Precondition: Valid data of size BUFFERSIZE
  * Postcondition: Sets the transmit buffer to message and returns the boolean of if the message equals the recieve buffer
@@ -114,6 +115,10 @@ bool readAndSetMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
   return !memcmp(aRxBuffer, message, BUFFERSIZE);
 }
 
+/* Reads buffers and sets transmit message as appropriate, handles state machine
+ * Precondition: Valid buffers of size BUFFERSIZE
+ * Postcondition: Alters buffers and state machine based off recieve buffer
+*/
 void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
 {
   switch(state) {
