@@ -113,7 +113,7 @@ void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
         state = PRECHARGE_COMPLETE;
       break;
     case PRECHARGE_COMPLETE:
-      readAndSetMessages(aRxBuffer, aTxBuffer, "DONEFIN");  // Currently one-way
+      readAndSetMessages(aRxBuffer, aTxBuffer, "DONEFIN");
       break;
     default:
       state = BROKEN;  // Must power-cycle
