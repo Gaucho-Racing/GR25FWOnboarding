@@ -81,7 +81,7 @@ enum STATE_MACHINE state = GLV_OFF;
  * Precondition: Valid data of size BUFFERSIZE
  * Postcondition: Sets the transmit buffer to message and returns the boolean of if the message equals the recieve buffer
 */
-bool readAndSetMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
+bool setAndCompareMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
 {
   memcpy(aTxBuffer, message, BUFFERSIZE);
   if (memcmp(aRxBuffer, "ERROR00", BUFFERSIZE))
@@ -97,23 +97,23 @@ void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
 {
   switch(state) {
     case GLV_OFF:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GLV_ON0"))
+      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "GLV_ON0"))
         state = GLV_ON;
       break;
     case GLV_ON:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECENG"))
+      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECENG"))
         state = PRECHARGE_ENGAGED;
       break;
     case PRECHARGE_ENGAGED:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECING"))
+      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECING"))
         state = PRECHARGING;
       break;
     case PRECHARGING:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECFIN"))
+      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECFIN"))
         state = PRECHARGE_COMPLETE;
       break;
     case PRECHARGE_COMPLETE:
-      readAndSetMessages(aRxBuffer, aTxBuffer, "DONEFIN");
+      setAndCompareMessages(aRxBuffer, aTxBuffer, "DONEFIN");
       break;
     default:
       state = BROKEN;  // Must power-cycle
