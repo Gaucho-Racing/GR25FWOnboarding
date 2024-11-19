@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,6 +53,23 @@ uint8_t aTxBuffer[8] = "wording";
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
+
+/* Enum to hold the state machine */
+enum STATE_MACHINE {
+  INITIAL,
+  GLVMS_ON,
+  TSMS_ON,
+  HVD_ENGAGED,
+  ALL_ECU_LATCHES_SET,
+  TS_ACTIVE_PRESSED,
+  HV_PRECHARGE_SUCCESS,
+  BRAKE_AND_RTD_PRESSED,
+  PERFORMANCE_CONFIG_SET,
+  SHUTDOWN,
+  BROKEN,
+  OFF
+};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,6 +81,83 @@ static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferL
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+enum STATE_MACHINE state = OFF;
+/* Proposed message/state breakdown:
+ *    ACU    |    ECU
+ * "START00" -> INITIAL
+ *           <- "GLVMSON"
+ * "GLVMSON" -> GLVMS_ON
+ *           <- "TSMSON0"
+ * "TSMSON0" -> TSMS_ON
+ *           <- "HVDENGA"
+ * "HVDENGA" -> HVD_ENGAGED
+ *           <- "SEACULA"
+ * "SEACULA" -> ALL_ECU_LATCHES_SET
+ * "TSACTON" -> TS_ACTIVE_PRESSED
+ * "HVPREOG" -> HV_PRECHARGE_SUCCESS
+ *           <- "PERFSET"
+ * "PERFSET" -> PERFORMANCE_CONFIG_SET
+ *           <- "GOOD000"
+ * "GOOD000" -> SHUTDOWN
+ *           <- "OFFNOW0"
+ * "OFFNOW0" -> OFF
+ */
+bool readAndSetMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
+{
+  memcpy(aTxBuffer, message, BUFFERSIZE);
+  if (memcmp(aRxBuffer, "ERROR00", BUFFERSIZE))
+    state = BROKEN;
+  return !memcmp(aRxBuffer, message, BUFFERSIZE);
+}
+
+void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
+{
+  switch(state) {
+    case OFF:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "START00"))
+        state = INITIAL;
+      break;
+    case INITIAL:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GLVMSON"))
+        state = GLVMS_ON;
+      break;
+    case GLVMS_ON:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "TSMSON0"))
+        state = TSMS_ON;
+      break;
+    case TSMS_ON:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "HVDENGA"))
+        state = HVD_ENGAGED;
+      break;
+    case HVD_ENGAGED:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "SEACULA"))
+        state = ALL_ECU_LATCHES_SET;
+      break;
+    case ALL_ECU_LATCHES_SET:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "TSACTION"))
+        state = TS_ACTIVE_PRESSED;
+      break;
+    case TS_ACTIVE_PRESSED:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "HVPREOG"))
+        state = HV_PRECHARGE_SUCCESS;
+      break;
+    case HV_PRECHARGE_SUCCESS:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PERFSET"))
+        state = PERFORMANCE_CONFIG_SET;
+      break;
+    case PERFORMANCE_CONFIG_SET:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GOOD000"))
+        state = SHUTDOWN;
+      break;
+    case SHUTDOWN:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "OFFNOW0"))
+        state = OFF;
+      break;
+    default:
+      state = BROKEN;  // Must power-cycle
+      Error_Handler();
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -118,11 +213,14 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        // Do something with the data we got! Probably configure aTxBuffer
+        // Disable when ready! (Rudimentary establish communications)
         if (!memcmp(aRxBuffer, "sending", BUFFERSIZE))
         {
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
+
+        // Enable when ready! (Rudimentary state machine)
+        // configureStateAndMessage(aRxBuffer, aTxBuffer);
 
         break;
 
