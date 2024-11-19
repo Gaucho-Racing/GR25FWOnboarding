@@ -90,7 +90,7 @@ bool setAndCompareMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message
 }
 
 /* Reads buffers and sets transmit message as appropriate, handles state machine
- * Precondition: Valid buffers of size BUFFERSIZE
+ * Precondition: Valid Tx and Rx buffers of size BUFFERSIZE
  * Postcondition: Alters buffers and state machine based off recieve buffer
 */
 void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
