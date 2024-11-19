@@ -54,7 +54,7 @@ uint8_t aTxBuffer[8] = "wording";
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
 
-/* Enum to hold the state machine */
+/* Enum to hold the state machine (https://docs.google.com/presentation/d/1ohplqW--e41bfMXMl-q8F7R5QJxx3OA3Z6VwNlkEVXo/edit?usp=sharing#slide=id.g2fa61f827cc_4_5) */
 enum STATE_MACHINE {
   GLV_OFF,
   GLV_ON,
