@@ -182,8 +182,9 @@ int main(void)
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
 
-        // TODO: Enable when ready!
-        // FIXME: Not tested in the slightest
+        // TODO: Enable when ready! Probably get rudimentary communications working first
+        // FIXME: Need to configure ACU side similarly, messages should match for send/rcv
+        // FIXME: Not tested yet
         // Rudimentary state machine for precharge
         // configureStateAndMessage(aRxBuffer, aTxBuffer);
 
