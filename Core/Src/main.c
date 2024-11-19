@@ -56,18 +56,12 @@ uint8_t aRxBuffer[BUFFERSIZE];
 
 /* Enum to hold the state machine */
 enum STATE_MACHINE {
-  INITIAL,
-  GLVMS_ON,
-  TSMS_ON,
-  HVD_ENGAGED,
-  ALL_ECU_LATCHES_SET,
-  TS_ACTIVE_PRESSED,
-  HV_PRECHARGE_SUCCESS,
-  BRAKE_AND_RTD_PRESSED,
-  PERFORMANCE_CONFIG_SET,
-  SHUTDOWN,
-  BROKEN,
-  OFF
+  GLV_OFF,
+  GLV_ON,
+  PRECHARGE_ENGAGED,
+  PRECHARGING,
+  PRECHARGE_COMPLETE,
+  BROKEN
 };
 
 /* USER CODE END PV */
@@ -81,27 +75,7 @@ static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferL
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-enum STATE_MACHINE state = OFF;
-/* Proposed message/state breakdown:
- *    ACU    |    ECU
- * "START00" -> INITIAL
- *           <- "GLVMSON"
- * "GLVMSON" -> GLVMS_ON
- *           <- "TSMSON0"
- * "TSMSON0" -> TSMS_ON
- *           <- "HVDENGA"
- * "HVDENGA" -> HVD_ENGAGED
- *           <- "SEACULA"
- * "SEACULA" -> ALL_ECU_LATCHES_SET
- * "TSACTON" -> TS_ACTIVE_PRESSED
- * "HVPREOG" -> HV_PRECHARGE_SUCCESS
- *           <- "PERFSET"
- * "PERFSET" -> PERFORMANCE_CONFIG_SET
- *           <- "GOOD000"
- * "GOOD000" -> SHUTDOWN
- *           <- "OFFNOW0"
- * "OFFNOW0" -> OFF
- */
+enum STATE_MACHINE state = GLV_OFF;
 
 /* Shortcut for copying and comparing memory buffer strings 
  * Precondition: Valid data of size BUFFERSIZE
@@ -122,45 +96,24 @@ bool readAndSetMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
 void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
 {
   switch(state) {
-    case OFF:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "START00"))
-        state = INITIAL;
+    case GLV_OFF:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GLV_ON0"))
+        state = GLV_ON;
       break;
-    case INITIAL:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GLVMSON"))
-        state = GLVMS_ON;
+    case GLV_ON:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECENG"))
+        state = PRECHARGE_ENGAGED;
       break;
-    case GLVMS_ON:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "TSMSON0"))
-        state = TSMS_ON;
+    case PRECHARGE_ENGAGED:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECING"))
+        state = PRECHARGING;
       break;
-    case TSMS_ON:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "HVDENGA"))
-        state = HVD_ENGAGED;
+    case PRECHARGING:
+      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PRECFIN"))
+        state = PRECHARGE_COMPLETE;
       break;
-    case HVD_ENGAGED:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "SEACULA"))
-        state = ALL_ECU_LATCHES_SET;
-      break;
-    case ALL_ECU_LATCHES_SET:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "TSACTION"))
-        state = TS_ACTIVE_PRESSED;
-      break;
-    case TS_ACTIVE_PRESSED:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "HVPREOG"))
-        state = HV_PRECHARGE_SUCCESS;
-      break;
-    case HV_PRECHARGE_SUCCESS:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "PERFSET"))
-        state = PERFORMANCE_CONFIG_SET;
-      break;
-    case PERFORMANCE_CONFIG_SET:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "GOOD000"))
-        state = SHUTDOWN;
-      break;
-    case SHUTDOWN:
-      if (readAndSetMessages(aRxBuffer, aTxBuffer, "OFFNOW0"))
-        state = OFF;
+    case PRECHARGE_COMPLETE:
+      readAndSetMessages(aRxBuffer, aTxBuffer, "DONEFIN");  // Currently one-way
       break;
     default:
       state = BROKEN;  // Must power-cycle
@@ -222,14 +175,17 @@ int main(void)
           Error_Handler();  // Transfer error :(
         }
 
-        // Disable when ready! (Rudimentary establish communications)
+        // TODO: Disable when ready!
+        // Rudimentary communications
         if (!memcmp(aRxBuffer, "sending", BUFFERSIZE))
         {
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
 
-        // Enable when ready!
-        // configureStateAndMessage(aRxBuffer, aTxBuffer);  // Rudimentary state machine, completely untested :)
+        // TODO: Enable when ready!
+        // FIXME: Not tested in the slightest
+        // Rudimentary state machine for precharge
+        // configureStateAndMessage(aRxBuffer, aTxBuffer);
 
         break;
 
