@@ -102,6 +102,10 @@ enum STATE_MACHINE state = OFF;
  *           <- "OFFNOW0"
  * "OFFNOW0" -> OFF
  */
+/* Shortcut for copying and comparing memory buffer strings 
+ * Precondition: Valid data of size BUFFERSIZE
+ * Postcondition: Sets the transmit buffer to message and returns the boolean of if the message equals the recieve buffer
+*/
 bool readAndSetMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
 {
   memcpy(aTxBuffer, message, BUFFERSIZE);
