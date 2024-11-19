@@ -228,8 +228,8 @@ int main(void)
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
 
-        // Enable when ready! (Rudimentary state machine)
-        // configureStateAndMessage(aRxBuffer, aTxBuffer);
+        // Enable when ready!
+        // configureStateAndMessage(aRxBuffer, aTxBuffer);  // Rudimentary state machine, completely untested :)
 
         break;
 
