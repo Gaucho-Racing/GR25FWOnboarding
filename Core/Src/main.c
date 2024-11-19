@@ -84,7 +84,7 @@ enum STATE_MACHINE state = GLV_OFF;
 bool setAndCompareMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
 {
   memcpy(aTxBuffer, message, BUFFERSIZE);
-  if (memcmp(aRxBuffer, "ERROR00", BUFFERSIZE))
+  if (!memcmp(aRxBuffer, "ERROR00", BUFFERSIZE))
     state = BROKEN;
   return !memcmp(aRxBuffer, message, BUFFERSIZE);
 }
