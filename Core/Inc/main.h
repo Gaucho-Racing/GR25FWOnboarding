@@ -60,7 +60,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 /* Size of buffer */
-#define BUFFERSIZE                       (COUNTOF(aTxBuffer) - 1)
+#define BUFFERSIZE                       (COUNTOF(aTxBuffer))
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
