@@ -1,5 +1,22 @@
 #include "streamBuffer.h";
 
+volatile uint8_t hardwareRxBuffer[HARDWARE_SIZE];
+volatile uint8_t hardwareTxBuffer[HARDWARE_SIZE];
+
+volatile uint8_t softwareRxBuffer[SOFTWARE_SIZE];
+volatile uint8_t softwareRxBufferSize = 0;
+
+volatile uint8_t softwareTxBuffer[SOFTWARE_SIZE];
+volatile uint8_t softwareTxBufferSize = 0;
+
+uint8_t getSoftwareBufferSize(char rt) {
+        if (rt == 'r') {
+                return softwareRxBufferSize;
+        } else if (rt == 't') {
+                return softwareTxBufferSize;
+        }
+}
+
 /**
   * @brief Write to either rx or tx buffer depending on rt
   * @retval None

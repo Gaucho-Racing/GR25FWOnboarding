@@ -25,9 +25,4 @@ int main()
 
     updateHardwareBuffer('t');
     printBuffer();
-
-     updateHardwareBuffer('t');
-     printBuffer();
-
-     printf("%f", softwareRxBufferSize);
 }
