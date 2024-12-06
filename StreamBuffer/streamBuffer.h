@@ -8,3 +8,4 @@
 void addToBuffer(uint8_t *addBuffer, uint8_t size, char rt);
 void updateHardwareBuffer(char rt);
 void resetSoftwareBuffer(char rt);
+void printBuffer();

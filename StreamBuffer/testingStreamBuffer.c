@@ -2,7 +2,12 @@
 
 int main()
 {
-    addToBuffer("testing this out!", 17, 'r');
+    addToBuffer("testingthisout!", 17, 'r');
+    printBuffer();
+
+    printf("\n");
+ 
+    updateHardwareBuffer('r');
     printBuffer();
 }
 
