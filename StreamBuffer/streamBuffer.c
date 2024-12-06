@@ -13,7 +13,8 @@ volatile uint8_t softwareTxBufferSize = 0;
   * @brief Tells you the size of rx or tx
   * @retval None
   */
-uint8_t getSoftwareBufferSize(char rt) {
+uint8_t getSoftwareBufferSize(char rt)
+{
         if (rt == 'r') {
                 return softwareRxBufferSize;
         } else if (rt == 't') {
@@ -80,7 +81,7 @@ void resetSoftwareBuffer(char rt)
 }
 
 /**
-  * @brief Print out all buffers
+  * @brief Prints the buffer
   * @retval None
   */
 void printBuffer()
