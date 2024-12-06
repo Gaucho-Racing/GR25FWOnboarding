@@ -129,39 +129,6 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    switch (HAL_SPI_TransmitReceive_IT(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
-    {
-      case HAL_OK:
-        // Communication is completed
-        // Compare the sent and received buffers
-        if (!Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
-        {
-          Error_Handler();  // Transfer error :(
-        }
-
-        // TODO: Disable when ready!
-        // Rudimentary communications
-        if (!memcmp(aRxBuffer, "sending", BUFFERSIZE))
-        {
-          memcpy(aTxBuffer, "correct", BUFFERSIZE);
-        }
-        HAL_Delay(500);
-
-        break;
-
-      case HAL_ERROR: // Double Error_Handler() [2 sec]
-        Error_Handler();
-        Error_Handler();
-        break;
-
-      case HAL_TIMEOUT: // Single Error_Handler() [1 sec]
-        Error_Handler();    // Currently no ACK means HAL_TIMEOUT
-        break;
-
-      default:
-        break;
-    }
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
