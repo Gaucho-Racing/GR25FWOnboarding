@@ -73,16 +73,6 @@ uint8_t aTxBuffer[256];
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
 
-/* Enum to hold the state machine (https://docs.google.com/presentation/d/1ohplqW--e41bfMXMl-q8F7R5QJxx3OA3Z6VwNlkEVXo/edit?usp=sharing#slide=id.g2fa61f827cc_4_5) */
-enum STATE_MACHINE {
-  GLV_OFF,
-  GLV_ON,
-  PRECHARGE_ENGAGED,
-  PRECHARGING,
-  PRECHARGE_COMPLETE,
-  BROKEN
-};
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,51 +84,6 @@ static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferL
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-enum STATE_MACHINE state = GLV_OFF;
-
-/* Shortcut for copying and comparing memory buffer strings 
- * Precondition: Valid data of size BUFFERSIZE
- * Postcondition: Sets the transmit buffer to message and returns the boolean of if the message equals the recieve buffer
-*/
-bool setAndCompareMessages(uint8_t *aRxBuffer, uint8_t *aTxBuffer, char *message)
-{
-  memcpy(aTxBuffer, message, BUFFERSIZE);
-  if (!memcmp(aRxBuffer, "ERROR00", BUFFERSIZE))
-    state = BROKEN;
-  return !memcmp(aRxBuffer, message, BUFFERSIZE);
-}
-
-/* Reads buffers and sets transmit message as appropriate, handles state machine
- * Precondition: Valid Tx and Rx buffers of size BUFFERSIZE
- * Postcondition: Alters buffers and state machine based off recieve buffer
-*/
-void configureStateAndMessage(uint8_t *aRxBuffer, uint8_t *aTxBuffer)
-{
-  switch(state) {
-    case GLV_OFF:
-      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "GLV_ON0"))
-        state = GLV_ON;
-      break;
-    case GLV_ON:
-      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECENG"))
-        state = PRECHARGE_ENGAGED;
-      break;
-    case PRECHARGE_ENGAGED:
-      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECING"))
-        state = PRECHARGING;
-      break;
-    case PRECHARGING:
-      if (setAndCompareMessages(aRxBuffer, aTxBuffer, "PRECFIN"))
-        state = PRECHARGE_COMPLETE;
-      break;
-    case PRECHARGE_COMPLETE:
-      setAndCompareMessages(aRxBuffer, aTxBuffer, "DONEFIN");
-      break;
-    default:
-      state = BROKEN;  // Must power-cycle
-      Error_Handler();
-  }
-}
 
 /* USER CODE END 0 */
 
@@ -201,12 +146,6 @@ int main(void)
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
         HAL_Delay(500);
-
-        // TODO: Enable when ready! Probably get rudimentary communications working first
-        // FIXME: Need to configure ACU side similarly, messages should match for send/rcv
-        // FIXME: Not tested yet
-        // Rudimentary state machine for precharge
-        // configureStateAndMessage(aRxBuffer, aTxBuffer);
 
         break;
 
