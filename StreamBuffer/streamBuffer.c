@@ -70,25 +70,25 @@ void printBuffer()
 {
         printf("Rx Software: ");
         for (int i = 0; i < softwareRxBufferSize; i++) {
-                printf("%c ", softwareRxBuffer[i]);
+                printf("%c", softwareRxBuffer[i]);
         }
 
         printf("\nRx Hardware: ");
 
         for (int i = 0; i < HARDWARE_SIZE; i++) {
-                printf("%c ", hardwareRxBuffer[i]);
+                printf("%c", hardwareRxBuffer[i]);
         }
 
         printf("\nTx Software: ");
 
         for (int i = 0; i < softwareTxBufferSize; i++) {
-                printf("%c ", softwareTxBuffer[i]);
+                printf("%c", softwareTxBuffer[i]);
         }
         
         printf("\nTx Hardware: ");
 
         for (int i = 0; i < HARDWARE_SIZE; i++) {
-                printf("%c ", hardwareTxBuffer[i]);
+                printf("%c", hardwareTxBuffer[i]);
         }
 
         printf("\n");

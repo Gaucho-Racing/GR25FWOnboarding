@@ -2,7 +2,7 @@
 
 int main()
 {
-    addToBuffer("testing this out!", 16, 'r');
+    addToBuffer("testing this out!", 17, 'r');
     printBuffer();
 }
 
