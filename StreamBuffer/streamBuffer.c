@@ -80,7 +80,7 @@ void resetSoftwareBuffer(char rt)
 }
 
 /**
-  * @brief Print out the buffers
+  * @brief Print out all buffers
   * @retval None
   */
 void printBuffer()
