@@ -44,28 +44,6 @@
 
 /* USER CODE END PM */
 
-/* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi2;
-/******************************************************************************/
-/* STM32G4xx Peripheral Interrupt Handlers                                    */
-/* Add here the Interrupt Handlers for the used peripherals.                  */
-/* For the available peripheral interrupt handler names,                      */
-/* please refer to the startup file (startup_stm32g4xx.s).                    */
-/******************************************************************************/
-
-/**
-  * @brief This function handles SPI1 global interrupt.
-  */
-void SPI1_IRQHandler(void)
-{
-  /* USER CODE BEGIN SPI1_IRQn 0 */
-
-  /* USER CODE END SPI1_IRQn 0 */
-  HAL_SPI_IRQHandler(&hspi2);
-  /* USER CODE BEGIN SPI1_IRQn 1 */
-
-  /* USER CODE END SPI1_IRQn 1 */
-}
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
 uint8_t aTxBuffer[256];
@@ -77,7 +55,7 @@ uint8_t aRxBuffer[BUFFERSIZE];
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_SPI2_Init(void);
+
 /* USER CODE BEGIN PFP */
 static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 /* USER CODE END PFP */
@@ -116,7 +94,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI2_Init();
 
   /* USER CODE BEGIN 2 */
 
