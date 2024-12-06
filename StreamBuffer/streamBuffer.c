@@ -66,6 +66,10 @@ void resetSoftwareBuffer(char rt)
         }
 }
 
+/**
+  * @brief Print out the buffers
+  * @retval None
+  */
 void printBuffer()
 {
         printf("\nRx Software: ");
@@ -90,6 +94,6 @@ void printBuffer()
         for (int i = 0; i < HARDWARE_SIZE; i++) {
                 printf("%c", hardwareTxBuffer[i]);
         }
-        
+
         printf("\n");
 }
