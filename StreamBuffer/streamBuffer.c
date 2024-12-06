@@ -1,13 +1,13 @@
-#include "streamBuffer.h";
+#include "streamBuffer.h"
 
-volatile uint8_t hardwareRxBuffer[HARDWARE_SIZE];
-volatile uint8_t hardwareTxBuffer[HARDWARE_SIZE];
+uint8_t hardwareRxBuffer[HARDWARE_SIZE];
+uint8_t hardwareTxBuffer[HARDWARE_SIZE];
 
-volatile uint8_t softwareRxBuffer[SOFTWARE_SIZE];
-volatile uint8_t softwareRxBufferSize = 0;
+uint8_t softwareRxBuffer[SOFTWARE_SIZE];
+uint8_t softwareRxBufferSize = 0;
 
-volatile uint8_t softwareTxBuffer[SOFTWARE_SIZE];
-volatile uint8_t softwareTxBufferSize = 0;
+uint8_t softwareTxBuffer[SOFTWARE_SIZE];
+uint8_t softwareTxBufferSize = 0;
 
 /**
   * @brief Tells you the size of rx or tx
