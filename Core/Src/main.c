@@ -165,7 +165,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    switch (HAL_SPI_TransmitReceive(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE, 5000))
+    switch (HAL_SPI_TransmitReceive_IT(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
     {
       case HAL_OK:
         // Communication is completed
