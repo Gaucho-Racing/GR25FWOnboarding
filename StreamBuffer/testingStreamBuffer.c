@@ -25,4 +25,8 @@ int main()
 
     updateHardwareBuffer('t');
     printBuffer();
+
+    addToBuffer("cheese", 7, 'r');
+    addToBuffer("pizza", 6,'r');
+    printBuffer();
 }
