@@ -266,14 +266,8 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
 
-  //__disable_irq(); // Re-enable this when ready
-
-  for(int i = 0; i < 50; i++) {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Flash LED quickly to show something is errored instead of crashing
-    HAL_Delay(20);
-  }
-  // FIXME: Remake this into just the original __disable_irq() line once we have communication setup
-
+  __disable_irq(); // Re-enable this when ready
+  
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -319,6 +313,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CRCPolynomial = 7;
   hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
   hspi2.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+
   if (HAL_SPI_Init(&hspi2) != HAL_OK)
   {
     Error_Handler();
