@@ -1,0 +1,2 @@
+#define HARDWARE_SIZE 8
+#define SOFTWARE_SIZE 512
