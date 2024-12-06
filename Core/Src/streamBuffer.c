@@ -30,6 +30,10 @@ void addToBuffer(uint8_t *addBuffer, uint8_t size, char rt)
         }
 }
 
+/**
+  * @brief Updates hardware buffers
+  * @retval None
+  */
 void updateHardwareBuffer(char rt)
 {
         if (rt == 'r') {
@@ -47,5 +51,19 @@ void updateHardwareBuffer(char rt)
                         softwareTxBuffer[i] = softwareTxBuffer[HARDWARE_SIZE + i];
                 }
                 softwareTxBufferSize -= HARDWARE_SIZE;
+        }
+}
+
+
+/**
+  * @brief Sets buffer size to 0 to clear buffer
+  * @retval None
+  */
+void resetSoftwareBuffer(char rt)
+{
+        if (rt == 'r') {
+                softwareRxBufferSize = 0;
+        } else if (rt == 't') {
+                softwareTxBufferSize = 0;
         }
 }
