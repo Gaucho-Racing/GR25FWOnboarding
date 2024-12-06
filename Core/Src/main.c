@@ -51,6 +51,14 @@ SPI_HandleTypeDef hspi2;
 /* Buffer used for transmission */
 uint8_t aTxBuffer[8] = "wording";
 
+enum
+{
+  TRANSFER_WAIT,
+  TRANSFER_COMPLETE,
+  TRANSFER_ERROR
+};
+__IO uint32_t wTransferState = TRANSFER_WAIT;
+
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
 
@@ -201,6 +209,25 @@ int main(void)
         break;
 
       default:
+        break;
+    }
+
+     while (wTransferState == TRANSFER_WAIT)
+    {
+    }
+
+    switch (wTransferState)
+    {
+      case TRANSFER_COMPLETE:
+        /*##-3- Compare the sent and received buffers ##############################*/
+        if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
+        {
+          /* Processing Error */
+          Error_Handler();
+        }
+        break;
+      default :
+        Error_Handler();
         break;
     }
 
