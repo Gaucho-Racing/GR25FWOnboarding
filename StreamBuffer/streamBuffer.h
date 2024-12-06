@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define HARDWARE_SIZE 8
-#define SOFTWARE_SIZE 512
+#define SOFTWARE_SIZE 256
 
 void addToBuffer(uint8_t *addBuffer, uint8_t size, char rt);
 void updateHardwareBuffer(char rt);
