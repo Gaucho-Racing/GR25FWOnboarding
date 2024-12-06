@@ -2,6 +2,7 @@
 
 int main()
 {
+        printf("Prepare to be amazed:");
     addToBuffer("testingthisout!", 16, 'r');
     printBuffer();
  
