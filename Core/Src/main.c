@@ -57,6 +57,8 @@ enum
   TRANSFER_COMPLETE,
   TRANSFER_ERROR
 };
+
+/* transfer state */
 __IO uint32_t wTransferState = TRANSFER_WAIT;
 
 /* Buffer used for reception */
