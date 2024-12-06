@@ -3,7 +3,7 @@
 all: testingStreamBuffer
 
 testingStreamBuffer: streamBuffer.c testingStreamBuffer.c
-	gcc @^ -o testingStreamBuffer
+	gcc $^ -o $@
 
 clean: streamBuffer
-	rm @^
+	rm $^
