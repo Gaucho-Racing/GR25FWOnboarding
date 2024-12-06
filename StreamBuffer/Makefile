@@ -1,9 +1,9 @@
 .PHONY: clean
 
-all: streamBuffer
+all: testingStreamBuffer
 
-streamBuffer:
-	gcc *.c -o streamBuffer
+testingStreamBuffer: streamBuffer.c testingStreamBuffer.c
+	gcc @^ -o testingStreamBuffer
 
 clean: streamBuffer
-	rm streamBuffer
+	rm @^
