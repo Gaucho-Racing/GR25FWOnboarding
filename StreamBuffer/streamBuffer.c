@@ -37,17 +37,18 @@ void updateHardwareBuffer(char rt)
         if (rt == 'r') {
                 memcpy(hardwareRxBuffer, softwareRxBuffer, HARDWARE_SIZE - 1);
 
-                for (int i = 0; i <= HARDWARE_SIZE; i++) {
-                        softwareRxBuffer[i] = softwareRxBuffer[HARDWARE_SIZE + i - 1];
+                for (int i = 0; i < SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
+                        softwareRxBuffer[i] = softwareRxBuffer[HARDWARE_SIZE + i];
                 }
 
                 softwareRxBufferSize -= HARDWARE_SIZE;
         } else if (rt == 't') {
                 memcpy(hardwareTxBuffer, softwareTxBuffer, HARDWARE_SIZE - 1);
 
-                for (int i = 0; i <= HARDWARE_SIZE; i++) {
-                        softwareTxBuffer[i] = softwareTxBuffer[HARDWARE_SIZE + i - 1];
+                for (int i = 0; i < SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
+                        softwareTxBuffer[i] = softwareTxBuffer[HARDWARE_SIZE + i];
                 }
+                
                 softwareTxBufferSize -= HARDWARE_SIZE;
         }
 }

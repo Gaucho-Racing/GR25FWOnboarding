@@ -2,17 +2,18 @@
 
 int main()
 {
-    addToBuffer("testingthisout!", 17, 'r');
+    addToBuffer("testingthisout!", 16, 'r');
     printBuffer();
  
     updateHardwareBuffer('r');
     printBuffer();
 
-    addToBuffer("iddonotknowhowtospellanything", 30, 't');
+    addToBuffer("idonotknowhowtospellanything", 28, 't');
+    printBuffer();
+    
     updateHardwareBuffer('t');
     printBuffer();
 
     resetSoftwareBuffer('r');
     printBuffer();
 }
-
