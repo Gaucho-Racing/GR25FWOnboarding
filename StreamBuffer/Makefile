@@ -5,5 +5,5 @@ all: testingStreamBuffer
 testingStreamBuffer: streamBuffer.c testingStreamBuffer.c
 	gcc $^ -o $@
 
-clean: streamBuffer
+clean: testingStreamBuffer
 	rm $^
