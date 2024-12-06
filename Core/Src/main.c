@@ -181,7 +181,6 @@ int main(void)
         {
           memcpy(aTxBuffer, "correct", BUFFERSIZE);
         }
-        HAL_Delay(500);
 
         // TODO: Enable when ready! Probably get rudimentary communications working first
         // FIXME: Need to configure ACU side similarly, messages should match for send/rcv
@@ -267,7 +266,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
 
-  __disable_irq(); // Re-enable this when ready
+  //__disable_irq(); // Re-enable this when ready
   
   /* USER CODE END Error_Handler_Debug */
 }
