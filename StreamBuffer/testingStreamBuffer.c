@@ -4,10 +4,15 @@ int main()
 {
     addToBuffer("testingthisout!", 17, 'r');
     printBuffer();
-
-    printf("\n");
  
     updateHardwareBuffer('r');
+    printBuffer();
+
+    addToBuffer("iddonotknowhowtospellanything", 30, 't');
+    updateHardwareBuffer('t');
+    printBuffer();
+
+    resetSoftwareBuffer('r');
     printBuffer();
 }
 
