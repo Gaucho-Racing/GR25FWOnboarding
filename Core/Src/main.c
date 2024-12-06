@@ -68,7 +68,7 @@ void SPI1_IRQHandler(void)
 }
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[8] = "wording";
+uint8_t aTxBuffer[256];
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
