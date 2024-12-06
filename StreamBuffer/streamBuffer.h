@@ -1,0 +1,9 @@
+#include <stdint.h>
+#include <string.h>
+
+#define HARDWARE_SIZE 8
+#define SOFTWARE_SIZE 512
+
+void addToBuffer(uint8_t *addBuffer, uint8_t size, char rt);
+void updateHardwareBuffer(char rt);
+void resetSoftwareBuffer(char rt);

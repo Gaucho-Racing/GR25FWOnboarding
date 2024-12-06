@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <string.h>
 #include "streamBuffer.h"
 
 volatile uint8_t hardwareRxBuffer[HARDWARE_SIZE];
