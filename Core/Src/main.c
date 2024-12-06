@@ -46,20 +46,29 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi2;
+/******************************************************************************/
+/* STM32G4xx Peripheral Interrupt Handlers                                    */
+/* Add here the Interrupt Handlers for the used peripherals.                  */
+/* For the available peripheral interrupt handler names,                      */
+/* please refer to the startup file (startup_stm32g4xx.s).                    */
+/******************************************************************************/
 
+/**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+  /* USER CODE END SPI1_IRQn 0 */
+  HAL_SPI_IRQHandler(&hspi2);
+  /* USER CODE BEGIN SPI1_IRQn 1 */
+
+  /* USER CODE END SPI1_IRQn 1 */
+}
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
 uint8_t aTxBuffer[8] = "wording";
-
-enum
-{
-  TRANSFER_WAIT,
-  TRANSFER_COMPLETE,
-  TRANSFER_ERROR
-};
-
-/* transfer state */
-__IO uint32_t wTransferState = TRANSFER_WAIT;
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
@@ -211,25 +220,6 @@ int main(void)
         break;
 
       default:
-        break;
-    }
-
-     while (wTransferState == TRANSFER_WAIT)
-    {
-    }
-
-    switch (wTransferState)
-    {
-      case TRANSFER_COMPLETE:
-        /*##-3- Compare the sent and received buffers ##############################*/
-        if (Buffercmp((uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE))
-        {
-          /* Processing Error */
-          Error_Handler();
-        }
-        break;
-      default :
-        Error_Handler();
         break;
     }
 
