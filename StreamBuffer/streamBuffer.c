@@ -1,13 +1,4 @@
-#include "streamBuffer.h"
-
-volatile uint8_t hardwareRxBuffer[HARDWARE_SIZE];
-volatile uint8_t hardwareTxBuffer[HARDWARE_SIZE];
-
-volatile uint8_t softwareRxBuffer[SOFTWARE_SIZE];
-volatile uint8_t softwareRxBufferSize = 0;
-
-volatile uint8_t softwareTxBuffer[SOFTWARE_SIZE];
-volatile uint8_t softwareTxBufferSize = 0;
+#include "streamBuffer.h";
 
 /**
   * @brief Write to either rx or tx buffer depending on rt
@@ -37,19 +28,19 @@ void updateHardwareBuffer(char rt)
         if (rt == 'r') {
                 memcpy(hardwareRxBuffer, softwareRxBuffer, HARDWARE_SIZE - 1);
 
-                for (int i = 0; i < SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
-                        softwareRxBuffer[i] = softwareRxBuffer[HARDWARE_SIZE + i];
+                for (int i = 0; i <= SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
+                        softwareRxBuffer[i] = softwareRxBuffer[HARDWARE_SIZE + i - 1];
                 }
 
-                softwareRxBufferSize -= HARDWARE_SIZE;
+                softwareRxBufferSize -= (HARDWARE_SIZE - 1);
         } else if (rt == 't') {
                 memcpy(hardwareTxBuffer, softwareTxBuffer, HARDWARE_SIZE - 1);
 
-                for (int i = 0; i < SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
-                        softwareTxBuffer[i] = softwareTxBuffer[HARDWARE_SIZE + i];
+                for (int i = 0; i <= SOFTWARE_SIZE - HARDWARE_SIZE; i++) {
+                        softwareTxBuffer[i] = softwareTxBuffer[HARDWARE_SIZE + i - 1];
                 }
                 
-                softwareTxBufferSize -= HARDWARE_SIZE;
+                softwareTxBufferSize -= (HARDWARE_SIZE - 1);
         }
 }
 

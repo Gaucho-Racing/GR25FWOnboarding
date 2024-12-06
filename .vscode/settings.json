@@ -1,3 +1,7 @@
 {
     "cmake.useCMakePresets": "always",
+    "files.associations": {
+        "streambuffer.h": "c",
+        "stdint.h": "c"
+    },
 }
