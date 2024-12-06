@@ -2,7 +2,7 @@
 
 int main()
 {
-        printf("Prepare to be amazed:");
+        printf("Prepare to be amazed:\n");
     addToBuffer("testingthisout!", 16, 'r');
     printBuffer();
  
