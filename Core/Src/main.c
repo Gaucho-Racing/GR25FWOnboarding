@@ -46,7 +46,7 @@
 
 /* USER CODE BEGIN PV */
 /* Buffer used for transmission */
-uint8_t aTxBuffer[256];
+uint8_t aTxBuffer[256]; 
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[BUFFERSIZE];
