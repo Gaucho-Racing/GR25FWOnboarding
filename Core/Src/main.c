@@ -62,7 +62,7 @@ static uint16_t Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferL
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+SPI_HandleTypeDef hspi2;
 /* USER CODE END 0 */
 
 /**
@@ -94,6 +94,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_SPI2_Init();
+
+  /* USER CODE BEGIN 2 */
 
   /* USER CODE BEGIN 2 */
 
@@ -105,6 +108,13 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
+    /* While the SPI in TransmitReceive process, user can transmit data through "aTxBuffer" buffer & receive data through "aRxBuffer" */
+    if (HAL_SPI_TransmitReceive_IT(&hspi2, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, BUFFERSIZE) != HAL_OK)
+    {
+      /* Transfer error in transmission process */
+      Error_Handler();
+    }
 
     /* USER CODE BEGIN 3 */
   }

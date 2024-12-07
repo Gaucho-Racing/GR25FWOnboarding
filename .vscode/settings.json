@@ -4,6 +4,7 @@
         "streambuffer.h": "c",
         "stdint.h": "c",
         "stm32g4xx_hal.h": "c",
-        "stm32g4xx_hal_spi.h": "c"
+        "stm32g4xx_hal_spi.h": "c",
+        "spi.h": "c"
     },
 }

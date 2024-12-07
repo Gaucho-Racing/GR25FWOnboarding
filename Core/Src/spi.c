@@ -1,7 +1,32 @@
 #include "stm32g4xx_hal_spi.h"
 #include "spi.h"
 
-SPI_HandleTypeDef hspi2;
+extern SPI_HandleTypeDef hspi2;
+
+/**
+  * @brief This function handles Non maskable interrupt.
+  */
+void NMI_Handler(void) {}
+
+/**
+  * @brief This function handles Hard fault interrupt.
+  */
+void HardFault_Handler(void) { while (1) {} }
+
+/**
+  * @brief This function handles System service call via SWI instruction.
+  */
+void SVC_Handler(void) {}
+
+/**
+  * @brief This function handles Pendable request for system service.
+  */
+void PendSV_Handler(void) {}
+
+/**
+  * @brief This function handles System tick timer.
+  */
+void SysTick_Handler(void) { HAL_IncTick(); }
 
 /**
   * @brief SPI2 Initialization Function
