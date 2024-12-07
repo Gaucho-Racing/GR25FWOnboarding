@@ -1,4 +1,4 @@
 #include "stm32g4xx_hal_spi.h"
+#include "spi.h"
 
-HAL_SPI_Init();
-HAL_SPI_Transmit_IT();
+SPI_HandleTypeDef hspi;
